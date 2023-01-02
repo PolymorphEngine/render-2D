@@ -4,4 +4,5 @@
  * 
  */
 
-#include "../Scripts/XComponent.hpp"
+#include "../../core/include/modules/TextureModule.hpp"
+#include "../../scripts/include/drawables/SpriteRendererComponent.hpp"
