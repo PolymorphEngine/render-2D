@@ -2,6 +2,8 @@
 #include "ComponentFactory.hpp"
 #include "SerializableObjectFactory.hpp"
 #include "polymorph/engine/api/plugin/Symbols.hpp"
+#include "ADrawable2dComponent.hpp"
+#include "polymorph/engine/debug/exception/core/MissingReferenceException.hpp"
 
 namespace polymorph::engine::api
 {
@@ -17,6 +19,18 @@ namespace polymorph::engine::api
 
     void PluginCore::updateInternalSystems(std::shared_ptr<Scene> &scene)
     {
+        auto entities = scene->getAll();
+
+        for (auto &entity: entities)
+        {
+            try {
+                if (!!entity->transform->parent())
+                    continue;
+                _drawEntity(entity);
+            } catch (debug::MissingReferenceException &e) {
+                e.what();
+            }
+        }
     }
 
     void PluginCore::postUpdateInternalSystems(std::shared_ptr<Scene> &scene)
@@ -43,6 +57,18 @@ namespace polymorph::engine::api
     std::unique_ptr<ASerializableObjectFactory> PluginCore::createSerializableObjectFactory()
     {
         return std::unique_ptr<ASerializableObjectFactory>(new SerializableObjectFactory());
+    }
+
+    void PluginCore::_drawEntity(GameObject &entity)
+    {
+        if (!entity->isActive())
+            return;
+        auto drawable = entity->getComponent<render2D::ADrawable2dComponent>();
+        if (!!drawable && drawable->enabled)
+            drawable->draw();
+
+        for (auto &child: **entity->transform)
+            _drawEntity(child->gameObject);
     }
 }
 
