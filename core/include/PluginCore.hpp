@@ -26,6 +26,9 @@ namespace polymorph::engine::api
             std::unique_ptr<AComponentFactory> createComponentFactory() override;
 
             std::unique_ptr<ASerializableObjectFactory> createSerializableObjectFactory() override;
+            
+        private:
+            void _drawEntity(GameObject &entity);
     };
 
 } // namespace polymorph::engine::api
