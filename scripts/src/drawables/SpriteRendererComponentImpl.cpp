@@ -18,6 +18,7 @@ namespace polymorph::engine::render2D
     void SpriteRendererImpl::build()
     {
         _setProperty("sprite", sprite);
+        _setProperty("offset", offset);
     }
 
     void SpriteRendererImpl::saveAll()
