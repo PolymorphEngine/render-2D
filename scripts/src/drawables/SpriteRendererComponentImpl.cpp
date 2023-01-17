@@ -11,6 +11,8 @@ namespace polymorph::engine::render2D
 {
     void SpriteRendererImpl::draw()
     {
+        if (!sprite)
+            throw debug::MissingReferenceException("Texture(sprite) => SpriteRendererComponent");
         sprite->setPosition(engine::Vector2(transform->getPosition()) + offset);
         sprite->draw();
     }
@@ -24,6 +26,7 @@ namespace polymorph::engine::render2D
     void SpriteRendererImpl::saveAll()
     {
         saveProperty("sprite", sprite);
+        saveProperty("offset", offset);
     }
 
 

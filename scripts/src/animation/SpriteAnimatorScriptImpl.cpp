@@ -101,12 +101,16 @@ namespace polymorph::engine::render2D
 
     void SpriteAnimatorImpl::build()
     {
-
+        _setProperty("currentAnimation", currentAnimation);
+        _setProperty("targetGraphics", targetGraphics);
+        _setProperty("animations", animations);
     }
 
     void SpriteAnimatorImpl::saveAll()
     {
-
+        saveProperty("currentAnimation", currentAnimation);
+        saveProperty("targetGraphics", targetGraphics);
+        saveProperty("animations", animations);
     }
 
 }

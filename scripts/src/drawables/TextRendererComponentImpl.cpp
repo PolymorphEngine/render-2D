@@ -25,6 +25,7 @@ namespace polymorph::engine::render2D
     void TextRendererImpl::saveAll()
     {
         saveProperty("text", text);
+        saveProperty("offset", offset);
     }
 
 }
